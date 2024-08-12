@@ -4,6 +4,7 @@ on:
     push:
         paths:
             - .github/actions/pr-conventional-commit/*
+            - .github/workflows/pr-conventional-commit-build.yaml
 
 jobs:
     build:
