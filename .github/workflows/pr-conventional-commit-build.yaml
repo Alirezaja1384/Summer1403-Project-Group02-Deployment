@@ -28,6 +28,7 @@ jobs:
               run: npm run --prefix .github/actions/pr-conventional-commit/ build
 
             - name: Commit changes
-              uses: stefanzweifel/git-auto-commit-action@v4
+              uses: EndBug/add-and-commit@v9 # You can change this to use a specific version.
               with:
-                  commit_message: "Build pr-conventional-commit"
+                  add: ".github/actions/pr-conventional-commit/dist"
+                  message: "Build pr-conventional-commit"
