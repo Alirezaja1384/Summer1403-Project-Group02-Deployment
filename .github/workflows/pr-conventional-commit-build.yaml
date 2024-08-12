@@ -3,7 +3,7 @@ name: Build pr-conventional-commit
 on:
     push:
         paths:
-            - .github/actions/pr-conventional-commit/*
+            - .github/actions/pr-conventional-commit/
             - .github/workflows/pr-conventional-commit-build.yaml
 
 jobs:
