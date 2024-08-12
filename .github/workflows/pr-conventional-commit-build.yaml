@@ -1,0 +1,32 @@
+name: Build pr-conventional-commit
+
+on:
+    push:
+        paths:
+            - .github/actions/pr-conventional-commit/*
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+
+        permissions:
+            contents: write
+
+        steps:
+            - uses: actions/checkout@v2
+
+            - name: Set up Node.js
+              uses: actions/setup-node@v1
+              with:
+                  node-version: "20.x"
+
+            - name: Install dependencies
+              run: npm install --include=dev
+
+            - name: Run build
+              run: npm run --prefix .github/actions/pr-conventional-commit/ build
+
+            - name: Commit changes
+              uses: stefanzweifel/git-auto-commit-action@v4
+              with:
+                  commit_message: "Build pr-conventional-commit"
