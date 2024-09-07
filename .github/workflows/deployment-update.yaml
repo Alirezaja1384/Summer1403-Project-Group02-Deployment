@@ -81,9 +81,22 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const prNumber = ${{ steps.create_pr.outputs.pull-request-number }};
-            await github.pulls.merge({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              pull_number: prNumber,
-              merge_method: 'squash'
+            const pullRequest = await github.rest.pulls.get({
+              owner: owner,
+              repo: repo,
+              pull_number: prNumber
             });
+
+            if (pullRequest.data.state === 'open') {
+              await github.rest.pulls.merge({
+                owner: owner,
+                repo: repo,
+                pull_number: prNumberr,
+                merge_method: 'squash'
+              });
+
+              console.log(`Pull request ${prNumber} merged successfully`);
+            }
+            else {
+              console.log(`Pull request ${prNumber} is not open`);
+            }
